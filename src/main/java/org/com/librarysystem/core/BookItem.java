@@ -11,6 +11,13 @@ public class BookItem {
     // ... Constructors, Getters/Setters ...
 
 
+    public BookItem(String barcode, Book book, BookStatus status, Branch currentBranch) {
+        this.barcode = barcode;
+        this.book = book;
+        this.status = status;
+        this.currentBranch = currentBranch;
+    }
+
     public String getBarcode() {
         return barcode;
     }

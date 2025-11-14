@@ -33,28 +33,7 @@ public class Main {
         logger.info("Library System starting up...");
 
         // Initialize all individual services
-        BookManagementService bookSvc = new BookManagementService();
-        PatronManagementService patronSvc = new PatronManagementService();
-        NotificationService notificationSvc = new NotificationService();
-
-        // Inject dependencies: ReservationService needs NotificationService
-        ReservationService reservationSvc = new ReservationService(notificationSvc);
-
-        // Inject dependencies: LendingService needs all three
-        LendingService lendingSvc = new LendingService(bookSvc, patronSvc, reservationSvc);
-
-        // Initialize the SearchService
-        SearchService searchSvc = new SearchService();
-
-        // Initialize the master Facade, injecting all services
-        // (This is the only object our 'main' method should talk to)
-        LibraryFacade library = new LibraryFacade(
-                lendingSvc,
-                bookSvc,
-                patronSvc,
-                searchSvc,
-                reservationSvc
-        );
+        LibraryFacade library = getLibraryFacade();
 
         logger.info("System setup complete. Starting demo...");
 
@@ -125,6 +104,32 @@ public class Main {
         System.out.println("Bob's notifications: " + patron2.getNotifications().get(0));
 
         logger.info("Demo complete.");
+    }
+
+    private static LibraryFacade getLibraryFacade() {
+        BookManagementService bookSvc = new BookManagementService();
+        PatronManagementService patronSvc = new PatronManagementService();
+        NotificationService notificationSvc = new NotificationService();
+
+        // Inject dependencies: ReservationService needs NotificationService
+        ReservationService reservationSvc = new ReservationService(notificationSvc);
+
+        // Inject dependencies: LendingService needs all three
+        LendingService lendingSvc = new LendingService(bookSvc, patronSvc, reservationSvc);
+
+        // Initialize the SearchService
+        SearchService searchSvc = new SearchService();
+
+        // Initialize the master Facade, injecting all services
+        // (This is the only object our 'main' method should talk to)
+        LibraryFacade library = new LibraryFacade(
+                lendingSvc,
+                bookSvc,
+                patronSvc,
+                searchSvc,
+                reservationSvc
+        );
+        return library;
     }
 }
 

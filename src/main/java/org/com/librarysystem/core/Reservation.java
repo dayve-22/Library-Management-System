@@ -11,6 +11,11 @@ public class Reservation {
     private ReservationStatus status;
     private LocalDate dateReserved;
 
+    public Reservation(Patron patron, Book book) {
+        this.patron = patron;
+        this.book = book;
+    }
+
     public String getReservationId() {
         return reservationId;
     }

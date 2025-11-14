@@ -18,12 +18,60 @@ public class Book {
 
     // ... Constructors, Getters/Setters ...
 
+    public Book(String isbn, String title, String author, int publicationYear, BookType type) {
+        this.isbn = isbn;
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.type = type;
+    }
+
     public String getIsbn() {
         return isbn;
     }
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getPublicationYear() {
+        return publicationYear;
+    }
+
+    public void setPublicationYear(int publicationYear) {
+        this.publicationYear = publicationYear;
+    }
+
+    public BookType getType() {
+        return type;
+    }
+
+    public void setType(BookType type) {
+        this.type = type;
+    }
+
+    public List<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
     }
 
     public void addObserver(Observer observer) {

@@ -13,6 +13,15 @@ public class LendingRecord {
     // ... Constructors, Getters/Setters ...
 
 
+    public LendingRecord(String recordId, String bookItemBarcode, String patronId, LocalDate checkoutDate, LocalDate dueDate) {
+        this.recordId = recordId;
+        this.bookItemBarcode = bookItemBarcode;
+        this.patronId = patronId;
+        this.checkoutDate = checkoutDate;
+        this.dueDate = dueDate;
+        this.returnDate = returnDate;
+    }
+
     public String getRecordId() {
         return recordId;
     }

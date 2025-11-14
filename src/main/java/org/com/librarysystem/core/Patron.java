@@ -11,6 +11,12 @@ public class Patron {
 
     // ... Constructors, Getters/Setters ...
 
+    public Patron(String patronId, String name, String email) {
+        this.patronId = patronId;
+        this.name = name;
+        this.email = email;
+    }
+
     public String getPatronId() {
         return patronId;
     }
@@ -49,5 +55,9 @@ public class Patron {
 
     public void setNotifications(List<String> notifications) {
         this.notifications = notifications;
+    }
+
+    public void addNotification(String message) {
+        this.notifications.add(message);
     }
 }

@@ -1,4 +1,7 @@
 package org.com.librarysystem.patterns.observer;
 
-public class Observer {
+import org.com.librarysystem.core.Book;
+
+public interface Observer {
+    void update(Book book);
 }
