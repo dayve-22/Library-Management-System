@@ -60,7 +60,7 @@ public class Main {
         System.out.println("\n--- 2. Searching for a Book ---");
         List<Book> results = library.searchBooks("Dune", new SearchByTitleStrategy());
         System.out.println("Found " + results.size() + " book(s) with title 'Dune'.");
-        System.out.println("Title: " + results.get(0).getTitle() + ", Author: " + results.get(0).getAuthor());
+        System.out.println("Title: " + results.getFirst().getTitle() + ", Author: " + results.getFirst().getAuthor());
 
 
         // --- 4. CHECKOUT ---

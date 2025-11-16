@@ -103,39 +103,35 @@ public class LendingService {
         }
 
         // --- Find and update LendingRecord ---
-        // Find the active loan for this item
         Optional<LendingRecord> recordOpt = activeLoans.stream()
                 .filter(record -> record.getBookItemBarcode().equals(barcode) && record.getReturnDate() == null)
                 .findFirst();
 
         if (!recordOpt.isPresent()) {
-            // This indicates a data consistency error (e.g., book is BORROWED but no loan record)
             logger.error("CRITICAL: No active loan record found for borrowed item: " + barcode);
             throw new IllegalStateException("Data inconsistency: No active loan record found for borrowed item.");
         }
 
         LendingRecord record = recordOpt.get();
-        record.setReturnDate(LocalDate.now()); // Update the record
-        activeLoans.remove(record); // Remove from *active* loans list
-        // The record remains in the patron's borrowingHistory
+        record.setReturnDate(LocalDate.now());
+        activeLoans.remove(record);
 
         logger.info("Loan record updated for item " + barcode);
 
-        // --- Check for reservations *before* making it available ---
-        Book bookTitle = item.getBook();
-        boolean reserved = reservationSvc.handleBookReturn(bookTitle);
+        // --- THIS IS THE UPDATED LOGIC ---
+        // Directly ask ReservationService to process the return
+        // and tell us what the new status should be.
+        BookStatus newStatus = reservationSvc.processBookReturn(item.getBook());
 
-        if (reserved) {
-            // The ReservationService (Observer) found a pending reservation
-            item.setStatus(BookStatus.RESERVED);
+        // Set the status returned by the service
+        item.setStatus(newStatus);
+
+        if (newStatus == BookStatus.RESERVED) {
             logger.info("Book returned and held for reservation: " + barcode);
         } else {
-            // No reservations pending, book is free
-            item.setStatus(BookStatus.AVAILABLE);
             logger.info("Book returned and available: " + barcode);
         }
     }
-
     /**
      * Helper method to calculate the due date.
      * (Could be expanded with rules for different BookTypes or PatronTypes)

@@ -11,9 +11,12 @@ public class Reservation {
     private ReservationStatus status;
     private LocalDate dateReserved;
 
-    public Reservation(Patron patron, Book book) {
+    public Reservation(String resId,Patron patron, Book book,ReservationStatus status,LocalDate dateReserved) {
+        this.reservationId=resId;
         this.patron = patron;
         this.book = book;
+        this.status=status;
+        this.dateReserved=dateReserved;
     }
 
     public String getReservationId() {

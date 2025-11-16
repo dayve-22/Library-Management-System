@@ -19,7 +19,6 @@ public class LendingRecord {
         this.patronId = patronId;
         this.checkoutDate = checkoutDate;
         this.dueDate = dueDate;
-        this.returnDate = returnDate;
     }
 
     public String getRecordId() {
